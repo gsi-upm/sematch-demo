@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+    <head>
+
+        <title>Sematch</title>
+         <!-- Using the latest rendering mode for IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- CDN for bootstrap font_awesome -->
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/style.css" type="text/css"/>
+        <link href="static/favicon.ico" rel="shortcut icon" type="image/x-icon">
+        <!-- JavaScript plugins (requires jQuery) -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <!-- use CDN for boostrap js -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    </head>
+    <body>
+
+
+        <div class="container" style="width: inherit">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="https://github.com/gsi-upm/sematch"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-xs-10">
+                    <img src="static/logo.png" style="padding-right:30px;" class="img-responsive" alt="Responsive image">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-6">
+                    <ul class="nav nav-tabs" role="tablist" id="myTab" style="border:none;padding-left:30px">
+                        <li role="presentation" class="active">
+                            <a href="#entity" aria-controls="entity" role="tab" data-toggle="tab">Entity</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#type" aria-controls="type" role="tab" data-toggle="tab">Type</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#text" aria-controls="text" role="tab" data-toggle="tab">Text</a>
+                        </li> 
+                        <li role="presentation">
+                            <a href="#semantic" aria-controls="semantic" role="tab" data-toggle="tab">Semantic</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#similarity" aria-controls="similarity" role="tab" data-toggle="tab">Similarity</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                 
+            <div class="row" style="margin-bottom:100px">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="entity">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-2 col-md-offset-2 col-xs-8">
+                                    <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntity">SPARQL Query?</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpEntity" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Entity Search Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>How it works?</h4>
+                                                    <p>The system maps common nouns and proper nouns in the query to DBpedia ontology classes and entity instances respectively. Then a SPARQL query template is used to construct the query based on two types of links. Finally, the execution results give you a list of entities having type (rdf:type) of common noun, which also have some semantic relation with proper noun. Moreover, semantic expansion is performed with common noun based on WordNet taxonomy in order to match more related entities. You can check out the technical details in the following publication.</p>
+                                                    <p>Zhu, Ganggao, and Carlos Angel Iglesias. "Sematch: Semantic Entity Search from Knowledge Graph." SumPre-HSWI@ ESWC. 2015.</p>
+                                                    <h4>How to use?</h4>
+                                                    <p>You need to input a common noun representing the entity type (e.g. university, singer) and a proper noun denoting a DBpedia instance (e.g. Madrid, Tom Cruise).&nbsp;Since the system does not support spell correction and mapping to DBpedia instances is based on exact string match, you need to input correct nouns and proper nouns. As the SPARQL query execution relies on <a href="http://dbpedia.org/sparql">DBpedia Sparql Endpoint</a>, the internet connection should be available, whereas the Endpoint may be not available because of maintanance and usage limit.</p>
+                                                    <h4>Examples</h4>
+                                                    <ul data-bind="foreach: entity_search_examples">
+                                                        <li><a href="" data-bind='text: $data, click:$parent.run_entity_search_example'></a></li>
+                                        
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-xs-8">
+                                    <input data-bind="value: query, event: {keyup:entity_keypress}" type="text" class="form-control" placeholder="Example: university Spain, festivals Barcelona, airport Italy">
+                                </div>
+                                <div class="col-md-2 col-xs-3">
+                                    <button data-bind="click: search" class="btn btn-primary">search</button>
+                                     <img src="static/loading.GIF" data-bind="visible: entity_search_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <ul style="list-style:none" data-bind="foreach: search_results, visible: search_results().length > 0">
+                                        <li>
+                                            <a data-bind="attr: {href: uri, tilte:label}"><h3 data-bind="text: label()"></h3></a>
+                                            <p data-bind="text: comments()"></p>
+                                        </li>
+   
+                                    </ul>  
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="type">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-2 col-md-offset-2">
+                                     <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpType">Type Query?</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpType" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Type Search Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>How it works?</h4>
+                                                    <p>Multilingual word forms are mapped to WordNet synsets and then those synsets having LOD mappings are retrieved and shown. After word to synset mapping, synset hyponyms are included based on WordNet taxonomy. This synset expansion strategory uses a depth-based tree search to find all the sub-concepts of the synset.We download the synset-yago mapping from YAGO websie. The synset and DBpedia ontotology class mappings are derived from YAGO classes. We do not cover all the DBpedia ontology classes, while only common nouns are considered.</p>
+                                                    <h4>How to use?</h4>
+                                                    <p>Input a common noun and select the language.</p>
+                                                    <h4>Examples</h4>
+                                                    <p>You can input English words, car, university, singer; Spanish words, coche, universidad, cantante; Chinese words, 汽车, 大学, 歌手. Note that the results may be different in different language because the lemma to synset mapping are different for different languages.</p>   
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input data-bind="value: type_query"  class="form-control" type="text" placeholder="cars">
+                                </div>
+                                <div class="col-md-2">
+                                   <select  class="form-control" data-bind="value:type_lang">
+                                        <option value="eng">English</option>
+                                        <option value="spa">Spanish</option>
+                                        <option value="cmn">Chinese</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    <button data-bind="click: type_search" class="btn btn-primary">search</button>
+                                    <img src="static/loading.GIF" data-bind="visible: type_search_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px;margin-bottom:30px">
+                                <div class="col-md-offset-2 col-md-8">
+                                    <ul class="list-group" data-bind="foreach: type_results, visible: type_results().length > 0">
+                                        <li class="list-group-item">
+                                            <p>
+                                                <h5>Synset</h5>
+                                                <span data-bind="text: synset()">&nbsp;</span>
+                                            </p>
+                                            <p>
+                                                <h5>Lemmas</h5>
+                                                <span data-bind="text: lemmas()">&nbsp;</span>
+                                            </p>
+                                            <p>
+                                                <h5>Definition</h5>
+                                                <span data-bind="text: definition()">&nbsp;</span>
+                                            </p>
+                                            <p>
+                                                <h5>LOD Links</h5>
+                                                <ul data-bind="foreach: links">
+                                                    <li><span data-bind="text: $data"></span></li>
+                                                </ul>
+                                            </p>
+                                        </li> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="text">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-2 col-md-offset-2">
+                                    <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpText">TF-IDF Query?</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpText" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Text Search Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>How it works?</h4>
+                                                    As Sematch offers entity search from DBpedia, when those entities are retrieved, textual search using conventional TF-IDF ranking can be applied to search those retrieved entities. The entities are all belonging to specific types. With Sematch, you can save those entities with thier textual abstracts. Then a text analysis module built based on Gensim will index the entities and ofter TF-IDF search. Finally, you can use this web ui to search those entites. Note that the ranking results may be not very accurate due to simple tokenization, lemmatization, and little texual descriptions of entities. However, this can be a starting point to combine more advanced ranking methods to rank those entities.
+                                                    <h4>How to use?</h4>
+                                                    <p>You can input any keywords which are related to those entities you want. In our demo, we provide a example to retrieve university, schools from DBpedia, so any keyword related to university, schools can be used to match entities such as, technical university of madrid, engineering school, business school, computer science, etc. </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <input data-bind="value: text_query, event: {keyup:text_keypress}" type="text" class="form-control" >
+                                </div>
+                                <div class="col-md-2 col-xs-3">
+                                    <button data-bind="click: text_search" class="btn btn-primary">search</button>
+                                     <img src="static/loading.GIF" data-bind="visible: text_search_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <ul style="list-style:none" data-bind="foreach: text_search_results, visible: text_search_results().length > 0">
+                                        <li>
+                                            <a data-bind="attr: {href: uri, tilte:label}"><h3 data-bind="text: label()"></h3></a>
+                                            <p data-bind="text: sim()"></p>
+                                            <p data-bind="text: comments()"></p>
+                                        </li>
+   
+                                    </ul>  
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="semantic">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-2 col-md-offset-2">
+                                    <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpSemantic">LSA Query?</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpSemantic" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Semantic Search Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>How it works?</h4>
+                                                    Following the TF-IDF search, we can also perform matrix factorization on term-entity matrix. We give such example using Latent Semantic Analysis to provide a simple semantic search interface for a list of entities belonging to specific types.
+                                                    <h4>How to use?</h4>
+                                                    <p>As terms are mapped to latent topical space, you can use topical words to match entities. For example, in our demo of universities, you can try keywords such as computer science, math, business, arts, etc.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <input data-bind="value: semantic_query, event: {keyup:semantic_keypress}" type="text" class="form-control" >
+                                </div>
+                                <div class="col-md-2 col-xs-3">
+                                    <button data-bind="click: semantic_search" class="btn btn-primary">search</button>
+                                     <img src="static/loading.GIF" data-bind="visible: semantic_search_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <ul  style="list-style:none" data-bind="foreach: semantic_search_results, visible: semantic_search_results().length > 0">
+                                        <li>
+                                            <a data-bind="attr: {href: uri, tilte:label}"><h3 data-bind="text: label()"></h3></a>
+                                            <p data-bind="text: sim()"></p>
+                                            <p data-bind="text: comments()"></p>
+                                        </li>
+   
+                                    </ul>  
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="similarity">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-7 col-md-offset-5">
+                                    <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpWordSim">Word Similarity</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpWordSim" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Word Similarity Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Input two common noun words and select language.</h5>
+                                                    <h6>English e.g. dog cat</h6>
+                                                    <h6>Chinese e.g. 狗   猫</h6>
+                                                    <h6>Spanish e.g. perro  gato</h6>
+                                                    <h5>How it works?</h5>
+                                                    <p>The similarity between words is computed using different semantic similarity metrics based on WordNet. Multilingual word forms are mapped to WordNet synsets based on Open Multilingual WordNet. Then the shortest path length, depth, information contents of synsets are used as information to compute similarity. We illustrate the metrics with their corresponding publication as below.</p>
+                                                    <h5>path</h5>
+                                                    <p>Rada, Roy, et al. "Development and application of a metric on semantic nets." IEEE transactions on systems, man, and cybernetics 19.1 (1989): 17-30.</p>
+                                                    <h5>lch</h5>
+                                                    <p>Leacock, Claudia, and Martin Chodorow. "Combining local context and WordNet similarity for word sense identification." WordNet: An electronic lexical database 49.2 (1998): 265-283.</p>
+                                                    <h5>wup</h5>
+                                                    <p>Wu, Zhibiao, and Martha Palmer. "Verbs semantics and lexical selection." Proceedings of the 32nd annual meeting on Association for Computational Linguistics. Association for Computational Linguistics, 1994.</p>
+                                                    <h5>li</h5>
+                                                    <p>Li, Yuhua, Zuhair A. Bandar, and David McLean. "An approach for measuring semantic similarity between words using multiple information sources." IEEE Transactions on knowledge and data engineering 15.4 (2003): 871-882.</p>
+                                                    <h5>res</h5>
+                                                    <p>Resnik, Philip. "Using information content to evaluate semantic similarity in a taxonomy." arXiv preprint cmp-lg/9511007 (1995).</p>
+                                                    <h5>lin</h5>
+                                                    <p>Lin, Dekang. "An information-theoretic definition of similarity." ICML. Vol. 98. No. 1998. 1998.</p>
+                                                    <h5>jcn</h5>
+                                                    <p>Jiang, Jay J., and David W. Conrath. "Semantic similarity based on corpus statistics and lexical taxonomy." arXiv preprint cmp-lg/9709008 (1997).</p>
+                                                    <h5>wpath</h5>
+                                                    <p>Zhu, Ganggao, and Carlos A. Iglesias. "Computing Semantic Similarity of Concepts in Knowledge Graphs." IEEE Transactions on Knowledge and Data Engineering 29.1 (2017): 72-85.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Word 1</h5>
+                                </div>
+                                <div class="col-md-2">
+                                    <input data-bind="value: word_query_one"  class="form-control" type="text" placeholder="cat">
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                   <select  class="form-control" data-bind="value:word_lang_one">
+                                        <option value="eng">English</option>
+                                        <option value="spa">Spanish</option>
+                                        <option value="cmn">Chinese</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    <button data-bind="click: word_sim" class="btn btn-primary">compute</button>
+                                    <img src="static/loading.GIF" data-bind="visible: word_sim_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Word 2</h5>
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    <input data-bind="value: word_query_two"  class="form-control" type="text" placeholder="dog">
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                   <select  class="form-control" data-bind="value:word_lang_two">
+                                        <option value="eng">English</option>
+                                        <option value="spa">Spanish</option>
+                                        <option value="cmn">Chinese</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px;margin-bottom:30px">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <ul class="list-group" data-bind="foreach: word_sim_results, visible: word_sim_results().length > 0">
+                                        <li class="list-group-item"><span> Metric: </span><span data-bind="text: name()">&nbsp;</span><span>   Sim: </span><span data-bind="text: sim()">&nbsp;</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-7 col-md-offset-5">
+                                    <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpConceptSim">Concept Similarity</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpConceptSim" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Concept Similarity Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Input LOD ontology class link and select either YAGO or DBpedia ontology classes</h5>
+                                                    <h6>YAGO Example</h6>
+                                                    <p>http://dbpedia.org/class/yago/Dancer109989502</p>
+                                                    <p>http://dbpedia.org/class/yago/Actor109765278</p>
+                                                    <h6>DBpedia Example</h6>
+                                                    <p>http://dbpedia.org/ontology/Actor</p>
+                                                    <p>http://dbpedia.org/ontology/Film</p>
+                                                    <h5>How it works?</h5>
+                                                    <p>For YAGO concepts, we first map those yago links to WordNet taxonomy since YAGO's taxonomy is built based on WordNet (68423 mappings). This mapping is similar to word form mapping to synsets in Word Similarity, but YAGO links do not have ambiguity problem since each link corresponds to a specific synset in WordNet. We then use WordNet taxonomy to get information for YAGO links such as depth, shortest path length and information contents. Mapping YAGO links to WordNet synsets, we can take advatage from existing synset information contents computed from SemCor and Brown Corpus. So we can use same similarity metrics in Word Similarity to compute semantic similarity between YAGO concepts. In addition, we also provide graph-based information which is computed based on YAGO concept distribution in DBpedia. These metrics are end with graph such as wpath_graph. You can check the details of how to compute graph-based information contents in the following publication</p>
+                                                    <p>Zhu, Ganggao, and Carlos A. Iglesias. "Computing Semantic Similarity of Concepts in Knowledge Graphs." IEEE Transactions on Knowledge and Data Engineering 29.1 (2017): 72-85.</p>
+                                                    <p>For DBpedia concepts, we parse DBpedia ontology and extract those ontology classes. Then these classes and their subClassOf relation are stored in Sematch Taxonomy which is a general interface for computing taxonomical similarity. Sematch provides ConceptSimilarity class to compute semantic similarity between DBpedia concepts and only uses graph based information content. So the Similarity metrics for DBpedia concepts (res, lin, jcn, wpath) only uses graph based information content computed from DBpedia online.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Concept 1</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <input data-bind="value: concept_query_one"  class="form-control" type="text">
+                                </div>
+                                  <div class="col-md-1">
+                                   <select  class="form-control" data-bind="value:concept_type">
+                                        <option value="yago">YAGO</option>
+                                        <option value="dbpedia">DBpedia</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="row" style="margin-top:10px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Concept 2</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <input data-bind="value: concept_query_two"  class="form-control" type="text">
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    <button data-bind="click: concept_sim" class="btn btn-primary">compute</button>
+                                    <img src="static/loading.GIF" data-bind="visible: concept_sim_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px;margin-bottom:30px">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <ul class="list-group" data-bind="foreach: concept_sim_results, visible: concept_sim_results().length > 0">
+                                        <li class="list-group-item"><span> Metric: </span><span data-bind="text: name()">&nbsp;</span><span>   Sim: </span><span data-bind="text: sim()">&nbsp;</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-7 col-md-offset-5">
+                                    <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntitySim">Entity Similarity</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="helpEntitySim" role="dialog">
+                                        <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Entity Similarity Help</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Input LOD instance link</h5>
+                                                    <h6>Example 1</h6>
+                                                    <p>http://dbpedia.org/resource/Madrid</p>
+                                                    <p>http://dbpedia.org/resource/Barcelona</p>
+                                                    <h6>Example 2</h6>
+                                                    <p>http://dbpedia.org/resource/Apple_Inc.</p>
+                                                    <p>http://dbpedia.org/resource/Steve_Jobs</p>
+                                                    <h5>How it works</h5>
+                                                    <p>We provide two methods to measure entity similarity. One is based on dbpedia link association which mainly measures entity link overlap between entities. You can check the detail of the method in the following article</p>
+                                                    <p>Milne, David, and Ian H. Witten. "Learning to link with wikipedia." Proceedings of the 17th ACM conference on Information and knowledge management. ACM, 2008.</p>
+                                                    <p>The second entity similarity measure is based on YAGO concept similarity. We first extract YAGO concepts of each entity and select their top 5 concets with highest graph-based information contents. We then compute semantic similarity of two entities by calculating similarity of two lists of concepts.We take the method of computing two sets of concepts from the following publication.</p>
+                                                    <p>Mihalcea, Rada, Courtney Corley, and Carlo Strapparava. "Corpus-based and knowledge-based measures of text semantic similarity." AAAI. Vol. 6. 2006.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Entity 1</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <input data-bind="value: entity_query_one"  class="form-control" type="text">
+                                </div>
+                                <div class="col-md-2 col-xs-4">
+                                    <button data-bind="click: entity_sim" class="btn btn-primary">compute</button>
+                                    <img src="static/loading.GIF" data-bind="visible: entity_sim_loading_state" style="height:35px" alt="Responsive image">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px">
+                                <div class="col-md-1 col-md-offset-3">
+                                    <h5>Entity 2</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <input data-bind="value: entity_query_two"  class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:30px;margin-bottom:30px">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <ul class="list-group" data-bind="foreach: entity_sim_results, visible: entity_sim_results().length > 0">
+                                        <li class="list-group-item"><span> Metric: </span><span data-bind="text: name()">&nbsp;</span><span>   Sim: </span><span data-bind="text: sim()">&nbsp;</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- <div role="tabpanel" class="tab-pane" id="question">
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-7 col-md-offset-2">
+                                    <input data-bind="value: query" type="text" class="form-control" placeholder="Example: university Spain">
+                                </div>
+                                <div class="col-md-3">
+                                    <button data-bind="click: search" class="btn btn-default">Ask</button>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row" style="margin-top:30px">
+                    <div class="col-md-7 col-md-offset-3">
+                        <label>Copyright Ganggao Zhu, Grupo de Sistemas Inteligentes, Universidad Politécnica de Madrid</label>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+
+            $(function () {
+                $('#myTab a:first').tab('show')
+            })
+
+            function Similarity(data){
+                this.name = ko.observable(data.name);
+                this.sim = ko.observable(data.sim);
+            }
+
+            function Synset(data){
+                this.synset = ko.observable(data.synset);
+                this.lemmas = ko.observable(data.lemmas);
+                this.definition = ko.observable(data.definition);
+                this.links = ko.observableArray(data.links);
+            }
+
+            function Entity(data) {
+                this.uri = ko.observable(data.uri);
+                this.sim = ko.observable(data.sim);
+                this.label = ko.observable(data.label);
+                this.comments = ko.observable(data.comments);
+            }
+
+            function QueryViewModel() {
+
+                var self = this;
+                self.word_query_one = ko.observable();
+                self.word_query_two = ko.observable();
+                self.word_lang_one = ko.observable();
+                self.word_lang_two = ko.observable();
+                self.word_sim_results = ko.observableArray([]);
+
+                self.concept_query_one = ko.observable();
+                self.concept_query_two = ko.observable();
+                self.concept_type = ko.observable();
+                self.concept_sim_results = ko.observableArray([]);
+
+                self.entity_query_one = ko.observable();
+                self.entity_query_two = ko.observable();
+                self.entity_sim_results = ko.observableArray([]);
+
+                self.search_results = ko.observableArray([]);
+                self.query = ko.observable();
+
+                self.type_query = ko.observable('cars');
+                self.type_lang = ko.observable();
+                self.type_results = ko.observableArray([]);
+
+                self.text_query = ko.observable();
+                self.text_search_results = ko.observableArray([]);
+
+                self.semantic_query = ko.observable();
+                self.semantic_search_results = ko.observableArray([]);
+
+                self.entity_sim_loading_state = ko.observable(false);
+                self.concept_sim_loading_state = ko.observable(false);
+                self.word_sim_loading_state = ko.observable(false);
+                self.entity_search_loading_state = ko.observable(false);
+                self.type_search_loading_state = ko.observable(false);
+                self.text_search_loading_state = ko.observable(false);
+                self.semantic_search_loading_state = ko.observable(false);
+
+                self.entity_search_examples = ko.observableArray(['university in Madrid', 'singer Spain',
+                    'Give me all movies with Tom Cruise', 'airport in Beijing', 'festivals in Spain', 'Neil Gaiman novels']);
+                self.service = 'http://localhost:5005/api/'
+                //self.service = 'http://demos.gsi.dit.upm.es/sematch/api/'
+
+                self.entity_sim_results_len = ko.computed(function(){
+                    var total = self.entity_sim_results().length;
+                    if(total > 0){
+                        self.entity_sim_loading_state(false);
+                    }
+                    return total + ' sims are retrieved';
+                });
+
+                self.concept_sim_results_len = ko.computed(function(){
+                    var total = self.concept_sim_results().length;
+                    if(total > 0){
+                        self.concept_sim_loading_state(false);
+                    }
+                    return total + ' sims are retrieved';
+                });
+
+                self.word_sim_results_len = ko.computed(function(){
+                    var total = self.word_sim_results().length;
+                    if(total > 0){
+                        self.word_sim_loading_state(false);
+                    }
+                    return total + ' sims are retrieved';
+                });
+
+                self.type_search_results_len = ko.computed(function(){
+                    var total = self.type_results().length;
+                    if(total > 0){
+                        self.type_search_loading_state(false);
+                    }
+                    return total + ' types are retrieved';
+                });
+
+                self.search_results_len = ko.computed(function(){
+                    var total = self.search_results().length;
+                    if(total > 0){
+                        self.entity_search_loading_state(false);
+                    }
+                    return total + ' entities are retrieved';
+                });
+
+                self.text_search_results_len = ko.computed(function(){
+                    var total = self.text_search_results().length;
+                    if(total > 0){
+                        self.text_search_loading_state(false);
+                    }
+                    return total + ' entities are retrieved';
+                });
+
+                self.semantic_search_results_len = ko.computed(function(){
+                    var total = self.semantic_search_results().length;
+                    if(total > 0){
+                        self.semantic_search_loading_state(false);
+                    }
+                    return total + ' entities are retrieved';
+                });
+
+
+                self.ajax = function(uri, method, data) {
+                    var request = {
+                        url: uri,
+                        type: method,
+                        contentType: "application/json",
+                        accepts: "application/json",
+                        cache: false,
+                        dataType: 'json',
+                        data: data,
+                        error: function(jqXHR) {
+                            console.log("ajax error " + jqXHR.status);
+                        }
+                    };
+                    return $.ajax(request);
+                }
+
+                self.entity_keypress = function(data, event){
+                    if(event.keyCode == 13){
+                        //alert("Enter was pressed was presses"+self.query()+data.value);
+                        self.search();
+                    }
+                    return true;
+                }
+
+                self.text_keypress = function(data, event){
+                    if(event.keyCode == 13){
+                        //alert("Enter was pressed was presses"+self.query()+data.value);
+                        self.text_search();
+                    }
+                    return true;
+                }
+
+                self.semantic_keypress = function(data, event){
+                    if(event.keyCode == 13){
+                        //alert("Enter was pressed was presses"+self.query()+data.value);
+                        self.semantic_search();
+                    }
+                    return true;
+                }
+
+                self.run_entity_search_example = function(q){
+                    self.query(q);
+                    self.search();
+                }
+
+                self.entity_sim = function(){
+                    self.entity_sim_loading_state(true);
+                    var requestData = {
+                        e1: self.entity_query_one(),
+                        e2: self.entity_query_two(),
+                    };
+                    if(self.entity_query_one() && self.entity_query_two()){
+                        self.ajax(self.service + 'entity_sim', 'GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.entity_sim_loading_state(false);
+                                alert("Sorry, your input entities should be correct!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Similarity({name:result['name'], sim:result['sim']})
+                            });
+                            self.entity_sim_results(results);
+                        });
+                    }else{
+                        self.entity_sim_loading_state(false);
+                        alert("Please input concepts!");
+                    }
+                }
+
+                self.concept_sim = function(){
+                    self.concept_sim_loading_state(true);
+                    var requestData = {
+                        c1: self.concept_query_one(),
+                        c2: self.concept_query_two(),
+                        type: self.concept_type(),
+                    };
+                    if(self.concept_query_one() && self.concept_query_two()){
+                        self.ajax(self.service + 'concept_sim', 'GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.concept_sim_loading_state(false);
+                                alert("Sorry, your input concepts should be correct!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Similarity({name:result['name'], sim:result['sim']})
+                            });
+                            self.concept_sim_results(results);
+                        });
+                    }else{
+                        self.concept_sim_loading_state(false);
+                        alert("Please input concepts!");
+                    }
+                }
+
+                self.word_sim = function(){
+                    self.word_sim_loading_state(true);
+                    var requestData = {
+                        w1: self.word_query_one(),
+                        lang1: self.word_lang_one(),
+                        w2: self.word_query_two(),
+                        lang2: self.word_lang_two(),
+                    };
+                    if(self.word_query_one() && self.word_query_two()){
+                        self.ajax(self.service + 'word_sim', 'GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.word_sim_loading_state(false);
+                                alert("Sorry, your input words should be common nouns!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Similarity({name:result['name'], sim:result['sim']})
+                            });
+                            self.word_sim_results(results);
+                        });
+                    }else{
+                        self.word_sim_loading_state(false);
+                        alert("Please input nouns!");
+                    }
+                }
+
+                self.type_search = function(){
+                    self.type_search_loading_state(true);
+                    var requestData = {
+                        type: self.type_query(),
+                        lang: self.type_lang()
+                    };
+                    if(self.type_query()){
+                        self.ajax(self.service + 'type_search', 'GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.type_search_loading_state(false);
+                                alert("Sorry, there is no such type in current sematch!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Synset({synset:result['name'], lemmas:result['lemma'],
+                                    definition:result['gloss'], sim:result['sim'], links:result['lod']})
+                            });
+                            self.type_results(results);
+                        });
+                    }else{
+                        self.type_search_loading_state(false);
+                        alert("Please input a type!");
+                    }
+                }
+
+                self.search = function() {
+                    self.entity_search_loading_state(true);
+                    var requestData = {
+                        query:self.query()
+                    };
+                    if(self.query()){
+                        self.ajax(self.service + 'entity_search','GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.entity_search_loading_state(false);
+                                alert("Sorry, there is no such data in Knowledge Graph, you can check the query in the left!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Entity({uri:result['uri'], label:result['label'], 
+                                        comments:result['abstract']})
+                            });
+                            self.search_results(results);
+                        });
+                    }else{
+                        self.entity_search_loading_state(false);
+                        alert("Please input a query!");
+                    }
+                }
+
+                self.text_search = function() {
+                    self.text_search_loading_state(true);
+                    var requestData = {
+                        query:self.text_query()
+                    };
+                    if(self.text_query()){
+                        self.ajax(self.service + 'text_search','GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.text_search_loading_state(false);
+                                alert("Sorry, there is no such data in current corpus!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Entity({uri:result['uri'], label:result['label'], 
+                                        comments:result['abstract'], sim:result['sim']})
+                            });
+                            self.text_search_results(results);
+                        });
+                    }else{
+                        self.text_search_loading_state(false);
+                        alert("Please input a query!");
+                    }
+                }
+
+                self.semantic_search = function() {
+                    self.semantic_search_loading_state(true);
+                    var requestData = {
+                        query:self.semantic_query()
+                    };
+                    if(self.semantic_query()){
+                        self.ajax(self.service + 'semantic_search','GET',requestData).success(function(data){
+                            if($.isEmptyObject(data)){
+                                self.semantic_search_loading_state(false);
+                                alert("Sorry, there is no such data in current corpus!");
+                                return;
+                            }
+                            var results = $.map(data, function(result) { 
+                                return new Entity({uri:result['uri'], label:result['label'], 
+                                        comments:result['abstract'], sim:result['sim']})
+                            });
+                            self.semantic_search_results(results);
+                        });
+                    }else{
+                        self.semantic_search_loading_state(false);
+                        alert("Please input a query!");
+                    }
+                }
+
+            };
+
+            ko.applyBindings(new QueryViewModel());
+        </script>
+    </body>
+</html>
