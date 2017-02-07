@@ -138,8 +138,8 @@ def home():
 
 def runserver():
     port = int(os.environ.get('PORT', 5005))
-    #app.run(host='demos.gsi.dit.upm.es', port=port)
-    app.run(host='localhost', port=port)
+    host = str(os.environ.get('HOST', 'localhost'))
+    app.run(host=host, port=port)
 
 if __name__ == '__main__':
     runserver()

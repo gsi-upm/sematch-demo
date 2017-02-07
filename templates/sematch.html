@@ -41,22 +41,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-offset-4 col-md-6">
+                <div class="col-md-offset-1 col-md-10">
                     <ul class="nav nav-tabs" role="tablist" id="myTab" style="border:none;padding-left:30px">
                         <li role="presentation" class="active">
-                            <a href="#entity" aria-controls="entity" role="tab" data-toggle="tab">Entity</a>
+                            <a href="#entity" aria-controls="entity" role="tab" data-toggle="tab">Entity Match</a>
                         </li>
                         <li role="presentation">
-                            <a href="#type" aria-controls="type" role="tab" data-toggle="tab">Type</a>
+                            <a href="#type" aria-controls="type" role="tab" data-toggle="tab">Type Search</a>
                         </li>
                         <li role="presentation">
-                            <a href="#text" aria-controls="text" role="tab" data-toggle="tab">Text</a>
+                            <a href="#text" aria-controls="text" role="tab" data-toggle="tab">Text Search</a>
                         </li> 
                         <li role="presentation">
-                            <a href="#semantic" aria-controls="semantic" role="tab" data-toggle="tab">Semantic</a>
+                            <a href="#semantic" aria-controls="semantic" role="tab" data-toggle="tab">Semantic Search</a>
                         </li>
                         <li role="presentation">
-                            <a href="#similarity" aria-controls="similarity" role="tab" data-toggle="tab">Similarity</a>
+                            <a href="#word_similarity" aria-controls="similarity" role="tab" data-toggle="tab">Word Similarity</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#concept_similarity" aria-controls="similarity" role="tab" data-toggle="tab">Concept Similarity</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#entity_similarity" aria-controls="similarity" role="tab" data-toggle="tab">Entity Similarity</a>
                         </li>
                     </ul>
                 </div>
@@ -66,10 +72,10 @@
                 <div class="col-md-12">
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="entity">
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-2 col-md-offset-2 col-xs-8">
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-1 col-md-offset-2 col-xs-8">
                                     <!-- Trigger the modal with a button -->
-                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntity">SPARQL Query?</button>
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntity">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpEntity" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -98,7 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5 col-xs-8">
+                                <div class="col-md-6 col-xs-8">
                                     <input data-bind="value: query, event: {keyup:entity_keypress}" type="text" class="form-control" placeholder="Example: university Spain, festivals Barcelona, airport Italy">
                                 </div>
                                 <div class="col-md-2 col-xs-3">
@@ -119,10 +125,10 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="type">
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-2 col-md-offset-2">
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-1 col-md-offset-2">
                                      <!-- Trigger the modal with a button -->
-                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpType">Type Query?</button>
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpType">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpType" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -147,7 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <input data-bind="value: type_query"  class="form-control" type="text" placeholder="cars">
                                 </div>
                                 <div class="col-md-2">
@@ -190,10 +196,10 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="text">
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-2 col-md-offset-2">
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-1 col-md-offset-2">
                                     <!-- Trigger the modal with a button -->
-                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpText">TF-IDF Query?</button>
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpText">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpText" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -216,7 +222,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <input data-bind="value: text_query, event: {keyup:text_keypress}" type="text" class="form-control" >
                                 </div>
                                 <div class="col-md-2 col-xs-3">
@@ -238,10 +244,10 @@
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="semantic">
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-2 col-md-offset-2">
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-1 col-md-offset-2">
                                     <!-- Trigger the modal with a button -->
-                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpSemantic">LSA Query?</button>
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpSemantic">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpSemantic" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -264,7 +270,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <input data-bind="value: semantic_query, event: {keyup:semantic_keypress}" type="text" class="form-control" >
                                 </div>
                                 <div class="col-md-2 col-xs-3">
@@ -285,11 +291,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="similarity">
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-7 col-md-offset-5">
-                                    <!-- Trigger the modal with a button -->
-                                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpWordSim">Word Similarity</button>
+                        <div role="tabpanel" class="tab-pane" id="word_similarity">
+                            <div class="row" style="margin-top:50px">
+                                <div class="col-md-1 col-md-offset-2">
+                                     <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpWordSim">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpWordSim" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -330,9 +335,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-1 col-md-offset-3">
+                                <div class="col-md-1">
                                     <h5>Word 1</h5>
                                 </div>
                                 <div class="col-md-2">
@@ -372,10 +375,12 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="concept_similarity">
                             <div class="row" style="margin-top:50px">
-                                <div class="col-md-7 col-md-offset-5">
+                                <div class="col-md-1 col-md-offset-2">
                                     <!-- Trigger the modal with a button -->
-                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpConceptSim">Concept Similarity</button>
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpConceptSim">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpConceptSim" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -405,9 +410,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-1 col-md-offset-3">
+                                <div class="col-md-1">
                                     <h5>Concept 1</h5>
                                 </div>
                                 <div class="col-md-4">
@@ -440,10 +443,11 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div> 
+                        <div role="tabpanel" class="tab-pane" id="entity_similarity">
                             <div class="row" style="margin-top:50px">
-                                <div class="col-md-7 col-md-offset-5">
-                                    <!-- Trigger the modal with a button -->
-                                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntitySim">Entity Similarity</button>
+                                <div class="col-md-1 col-md-offset-2">
+                                    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#helpEntitySim">Help?</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="helpEntitySim" role="dialog">
                                         <div class="modal-dialog modal-lg">
@@ -474,9 +478,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-top:30px">
-                                <div class="col-md-1 col-md-offset-3">
+                                <div class="col-md-1">
                                     <h5>Entity 1</h5>
                                 </div>
                                 <div class="col-md-4">
