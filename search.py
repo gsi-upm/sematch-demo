@@ -40,7 +40,7 @@ DATA_FILE = 'data/data.txt'
 
 def prepare_entities(query='music song singer'):
     print "extracting data with type of "+ query
-    matcher = Matcher(result_limit=100, expansion=False, show_query=True)
+    matcher = Matcher(result_limit=10000, expansion=True, show_query=True)
     data = matcher.match_type(query)
     print len(data), " entities are downloaded!"
     save_data(DATA_FILE, data)
