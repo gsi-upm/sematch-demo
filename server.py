@@ -138,7 +138,7 @@ def home():
 
 def runserver():
     port = int(os.environ.get('PORT', 5005))
-    host = str(os.environ.get('HOST', 'localhost'))
+    host = str(os.environ.get('HOST', '0.0.0.0'))
     app.run(host=host, port=port)
 
 if __name__ == '__main__':
