@@ -9,6 +9,8 @@ docker run \
 	--name sematch \
 	-p 5000:5005 \
 	-e SEMATCH_ENDPOINT=http://localhost:5000/api/ \
+	-e RESULT_LIMIT=100 \
+	-e EXPANSION=True \
 	-v $DATA_DIR:/sematch-demo/data \
 	-ti \
 	gsiupm/sematch:0.1 

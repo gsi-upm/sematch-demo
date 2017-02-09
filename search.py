@@ -20,6 +20,7 @@ from sematch.application import Matcher
 from sematch.nlp import word_tokenize, word_process
 from gensim import corpora, models, similarities, matutils
 
+import os
 import json
 
 def read_data(name):
@@ -40,7 +41,9 @@ DATA_FILE = 'data/data.txt'
 
 def prepare_entities(query='music song singer'):
     print "extracting data with type of "+ query
-    matcher = Matcher(result_limit=100, expansion=False, show_query=True)
+    result_limit = os.environ.get('RESULT_LIMIT', 100)
+    expansion = os.environ.get('EXPANSION', False)
+    matcher = Matcher(result_limit=result_limit, expansion=expansion, show_query=True)
     data = matcher.match_type(query)
     print len(data), " entities are downloaded!"
     save_data(DATA_FILE, data)
