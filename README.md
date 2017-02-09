@@ -15,11 +15,6 @@ git clone https://github.com/gsi-upm/sematch-demo.git
 
 cd sematch-demo
 
-mkdir data
-
-mkdir data/lsa_index
-
-mkdir data/tfidf_index
 ```
 
 
