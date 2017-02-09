@@ -10,7 +10,8 @@ WORKDIR /sematch-demo
 
 EXPOSE 5005
 
-RUN mkdir -p data/lsa_index
-RUN mkdir -p data/tfidf_index
+ENV SEMATCH_HOST=0.0.0.0 SEMATCH_PORT=5005 SEMATCH_ENDPOINT=http://localhost:50005/api/
+
+VOLUME /sematch-demo/data
 
 CMD ["python", "server.py"]

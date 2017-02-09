@@ -133,12 +133,12 @@ def entity_search():
 
 @app.route('/')
 def home():
-    return template('sematch.html')
-
+    endpoint = os.environ.get('SEMATCH_ENDPOINT', 'http://localhost:5005/api/')
+    return template('sematch.html', endpoint=endpoint)
 
 def runserver():
-    port = int(os.environ.get('PORT', 5005))
-    host = str(os.environ.get('HOST', '0.0.0.0'))
+    host = str(os.environ.get('SEMATCH_HOST', '0.0.0.0'))
+    port = int(os.environ.get('SEMATCH_PORT', 5005))
     app.run(host=host, port=port)
 
 if __name__ == '__main__':
