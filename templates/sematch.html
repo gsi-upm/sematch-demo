@@ -213,7 +213,7 @@
                                                     <h4>How it works?</h4>
                                                     As Sematch offers entity search from DBpedia, when those entities are retrieved, textual search using conventional TF-IDF ranking can be applied to search those retrieved entities. The entities are all belonging to specific types. With Sematch, you can save those entities with thier textual abstracts. Then a text analysis module built based on Gensim will index the entities and ofter TF-IDF search. Finally, you can use this web ui to search those entites. Note that the ranking results may be not very accurate due to simple tokenization, lemmatization, and little texual descriptions of entities. However, this can be a starting point to combine more advanced ranking methods to rank those entities.
                                                     <h4>How to use?</h4>
-                                                    <p>You can input any keywords which are related to those entities you want. In our demo, we provide a example to retrieve university, schools from DBpedia, so any keyword related to university, schools can be used to match entities such as, technical university of madrid, engineering school, business school, computer science, etc. </p>
+                                                    <p>You can input any keywords which are related to those entities you want. In our demo, we provide a example to retrieve singers and songs from DBpedia, so any keyword related to singers and songs can be used to match entities such as, cats musical, the show must go on, por una cabeza etc. </p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -223,7 +223,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input data-bind="value: text_query, event: {keyup:text_keypress}" type="text" class="form-control" >
+                                    <input data-bind="value: text_query, event: {keyup:text_keypress}" type="text" class="form-control" placeholder="Example: cats musical, the show must go on, por una cabeza" >
                                 </div>
                                 <div class="col-md-2 col-xs-3">
                                     <button data-bind="click: text_search" class="btn btn-primary">search</button>
@@ -261,7 +261,7 @@
                                                     <h4>How it works?</h4>
                                                     Following the TF-IDF search, we can also perform matrix factorization on term-entity matrix. We give such example using Latent Semantic Analysis to provide a simple semantic search interface for a list of entities belonging to specific types.
                                                     <h4>How to use?</h4>
-                                                    <p>As terms are mapped to latent topical space, you can use topical words to match entities. For example, in our demo of universities, you can try keywords such as computer science, math, business, arts, etc.</p>
+                                                    <p>As terms are mapped to latent topical space, you can use topical words to match entities. For example, in our demo of singers and songs, you can try keywords such as baritone, jazz, spanish songs, chinese songs etc.</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input data-bind="value: semantic_query, event: {keyup:semantic_keypress}" type="text" class="form-control" >
+                                    <input data-bind="value: semantic_query, event: {keyup:semantic_keypress}" type="text" class="form-control" placeholder="Example: baritone, jazz, tango, spanish songs, chinese songs">
                                 </div>
                                 <div class="col-md-2 col-xs-3">
                                     <button data-bind="click: semantic_search" class="btn btn-primary">search</button>
@@ -414,7 +414,7 @@
                                     <h5>Concept 1</h5>
                                 </div>
                                 <div class="col-md-4">
-                                    <input data-bind="value: concept_query_one"  class="form-control" type="text">
+                                    <input data-bind="value: concept_query_one"  class="form-control" type="text" placeholder="http://dbpedia.org/class/yago/Dancer109989502">
                                 </div>
                                   <div class="col-md-1">
                                    <select  class="form-control" data-bind="value:concept_type">
@@ -429,7 +429,7 @@
                                     <h5>Concept 2</h5>
                                 </div>
                                 <div class="col-md-4">
-                                    <input data-bind="value: concept_query_two"  class="form-control" type="text">
+                                    <input data-bind="value: concept_query_two"  class="form-control" type="text" placeholder="http://dbpedia.org/class/yago/Actor109765278">
                                 </div>
                                 <div class="col-md-2 col-xs-4">
                                     <button data-bind="click: concept_sim" class="btn btn-primary">compute</button>
@@ -482,7 +482,7 @@
                                     <h5>Entity 1</h5>
                                 </div>
                                 <div class="col-md-4">
-                                    <input data-bind="value: entity_query_one"  class="form-control" type="text">
+                                    <input data-bind="value: entity_query_one"  class="form-control" type="text" placeholder="http://dbpedia.org/resource/Madrid">
                                 </div>
                                 <div class="col-md-2 col-xs-4">
                                     <button data-bind="click: entity_sim" class="btn btn-primary">compute</button>
@@ -494,7 +494,7 @@
                                     <h5>Entity 2</h5>
                                 </div>
                                 <div class="col-md-4">
-                                    <input data-bind="value: entity_query_two"  class="form-control" type="text">
+                                    <input data-bind="value: entity_query_two"  class="form-control" type="text" placeholder="http://dbpedia.org/resource/Barcelona">
                                 </div>
                             </div>
                             <div class="row" style="margin-top:30px;margin-bottom:30px">

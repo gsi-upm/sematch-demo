@@ -41,7 +41,7 @@ DATA_FILE = 'data/data.txt'
 
 def prepare_entities(query='music song singer'):
     print "extracting data with type of "+ query
-    result_limit = os.environ.get('RESULT_LIMIT', 100)
+    result_limit = os.environ.get('RESULT_LIMIT', 10000)
     expansion = os.environ.get('EXPANSION', False)
     matcher = Matcher(result_limit=result_limit, expansion=expansion, show_query=True)
     data = matcher.match_type(query)

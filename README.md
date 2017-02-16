@@ -1,6 +1,6 @@
 #### Introduction
 
-This is the demo project of [Sematch](https://github.com/gsi-upm/sematch). You can use this as example of using Sematch. 
+This is the demo project of [Sematch](https://github.com/gsi-upm/sematch). You can use this as example of using Sematch. You can try [online demo](http://sematch.cluster.gsi.dit.upm.es/) which is hosted in our server.
 
 #### Install
 
@@ -14,19 +14,12 @@ pip install sematch
 git clone https://github.com/gsi-upm/sematch-demo.git
 
 cd sematch-demo
-
 ```
 
-
-
 #### Run
-
-open search.py file, and in the `prepare_entities` function change the entities you want. The words should be common nouns and separate with spaces. You can also change the settings in the function. 
 
 ```
 python server.py
 ```
 
-
-
-Contact Ganggao Zhu via  via gzhu [at] dit.upm.es if you have any problems with running this demo.
+Contact Ganggao Zhu via  via gzhu [at] dit.upm.es if you have any problems in running this demo. 
