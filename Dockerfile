@@ -1,5 +1,6 @@
 FROM python:2.7
 
+RUN pip install setuptools==33.1.1
 RUN pip install sematch
 RUN pip install flask gensim 
 RUN python -m sematch.download
