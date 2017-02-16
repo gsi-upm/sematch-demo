@@ -36,5 +36,7 @@ docker run -p 80:5005 sematch:latest
 
 Connect to the service in `http://localhost:80`
 
+---
+
 
 Contact Ganggao Zhu via  via gzhu [at] dit.upm.es if you have any problems in running this demo. 
